@@ -1,0 +1,51 @@
+.headercontainer{
+    background-blend-mode: gray;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px;
+}
+
+.G1{
+    display: flex;
+}
+
+.logo{
+    height: 45px;
+    width: 45px;
+    border-radius: 25px;
+    background-color: black;
+    margin-right: 10px;
+}
+
+.brand{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.subbrand{
+    font-size: 13px;
+    color: #888;
+}
+
+.G2{
+    display: flex;
+}
+
+.userImage{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid gray;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.username{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.role{
+    font-size: 13px;
+}
