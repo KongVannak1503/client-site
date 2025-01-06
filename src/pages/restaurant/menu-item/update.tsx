@@ -3,29 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button, Input, Form, message, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
-
-// ImagePreview Component
-const ImagePreview: React.FC<{ imagePreview: string | null }> = ({
-  imagePreview,
-}) => {
-  return (
-    <div className="mt-2 mb-3">
-      {imagePreview ? (
-        <img
-          src={imagePreview}
-          alt="Preview"
-          className="w-[200px] h-[200px] object-cover"
-        />
-      ) : (
-        <img
-          src="https://png.pngtree.com/png-vector/20231215/ourmid/pngtree-transaction-approved-png-image_11354742.png"
-          alt="Placeholder"
-          className="w-[200px] h-[200px] object-cover"
-        />
-      )}
-    </div>
-  );
-};
+import ImagePreview from "../../../components/utils/ImagePreview";
 
 const UpdateMenu = () => {
   const { id, itemId } = useParams(); // Access restaurantId and itemId from the URL
@@ -100,10 +78,11 @@ const UpdateMenu = () => {
 
   // Handle file change and preview
   const handleImageChange = (info: any) => {
-    if (info.file.status === "done") {
-      // Check if a new image file is selected and update preview
-      const file = info.file.originFileObj;
-      setImagePreview(URL.createObjectURL(file)); // Update preview in real-time
+    if (info.fileList.length > 0) {
+      const file = info.fileList[0].originFileObj; // Get the newly selected file
+      setImagePreview(URL.createObjectURL(file)); // Update the preview with the new file
+    } else {
+      setImagePreview(null); // Reset preview if no file is selected
     }
   };
 

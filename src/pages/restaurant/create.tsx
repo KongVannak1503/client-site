@@ -49,6 +49,7 @@ const CreateRestaurant = () => {
 
       message.success(data.message || "Menu item created successfully!");
       form.resetFields();
+      navigate(`/restaurant`);
     } catch (error) {
       setError(error.message || "Failed to create menu item.");
       message.error(error.message || "Failed to create menu item.");

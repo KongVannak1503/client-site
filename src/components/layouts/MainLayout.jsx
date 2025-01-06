@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useNavigate, Outlet } from 'react-router-dom'; // Import Outlet for rendering child routes
-import { getIsLogin, getUser } from '../../utils/services';
+import { getIsLogin, getUser, logout } from '../../utils/services';
 import styles from './MainLayout.module.css';
 import imgLogo from '../../../public/logo.png';
 
@@ -30,7 +30,7 @@ const items = [
   getItem('Restaurant', 'sub2', <ShopFilled />),
   getItem('Delivery', 'sub3', <TeamOutlined />),
 
-  getItem('Files', '9', <FileOutlined />),
+  getItem('Logout', 'logout', <FileOutlined />),
 ];
 
 const MainLayout = () => {
@@ -67,6 +67,9 @@ const MainLayout = () => {
     if (e.key === 'sub3') {
       navigate('/delivery-partners');
     }
+    if (e.key === 'logout') {
+      logout();
+    }
 
   };
 
@@ -90,10 +93,18 @@ const MainLayout = () => {
         <div className={styles.headercontainer}>
           <div></div>
           <div className={styles.G2}>
-            <div className={styles.userImage}></div>
-            <div>
-              <div className={styles.username}>{user.name || 'User'}</div> {/* Display user name */}
-              <div className={styles.role}>{user.role}</div>
+            <div className="flex justify-center items-center">
+              <div className="w-9 h-9 overflow-hidden rounded-full border-2 border-gray-300">
+                <img
+                  src="https://imgcdn.stablediffusionweb.com/2024/11/10/9cf53bca-4ed8-4384-9b96-3d4c3ffac4ad.jpg"
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className='ml-2'>
+                <div className={styles.username}>{user.name || 'User'}</div> {/* Display user name */}
+                <div className={styles.role}>{user.role}</div>
+              </div>
             </div>
           </div>
         </div>

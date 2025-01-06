@@ -17,6 +17,8 @@ import CreateMenu from "./pages/restaurant/menu-item/create"
 import UpdateMenu from "./pages/restaurant/menu-item/update"
 import UpdateDelivery from "./pages/delivery-partner/update"
 import Cloud from "./pages/auth/Cloud"
+import FullLayout from "./components/layouts/FullLayout"
+import ProductCards from "./pages/product/Product"
 
 function App() {
   return (
@@ -46,6 +48,9 @@ function App() {
           <Route path="/cloud" element={<Cloud />} />
 
           <Route path="*" element={<h1>Page not found</h1>} />
+        </Route>
+        <Route path="/" element={<FullLayout />}>
+          <Route path="/products" element={<ProductCards />} />
         </Route>
       </Routes>
     </BrowserRouter>
