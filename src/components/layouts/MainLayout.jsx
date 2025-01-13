@@ -29,6 +29,7 @@ const items = [
   getItem('User', 'sub1', <UserOutlined />),
   getItem('Restaurant', 'sub2', <ShopFilled />),
   getItem('Delivery', 'sub3', <TeamOutlined />),
+  getItem('Products', 'products', <TeamOutlined />),
 
   getItem('Logout', 'logout', <FileOutlined />),
 ];
@@ -66,6 +67,9 @@ const MainLayout = () => {
     }
     if (e.key === 'sub3') {
       navigate('/delivery-partners');
+    }
+    if (e.key === 'products') {
+      navigate('/products');
     }
     if (e.key === 'logout') {
       logout();

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
+  HeartOutlined,
   PieChartOutlined,
   ShopFilled,
   TeamOutlined,
@@ -10,6 +11,7 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useNavigate, Outlet } from 'react-router-dom'; // Import Outlet for rendering child routes
 import { getIsLogin, getUser, logout } from '../../utils/services';
+import Cookies from 'js-cookie'; // Import js-cookie to manage cookies
 import styles from './MainLayout.module.css';
 import imgLogo from '../../../public/logo.png';
 
@@ -29,7 +31,6 @@ const items = [
   getItem('User', 'sub1', <UserOutlined />),
   getItem('Restaurant', 'sub2', <ShopFilled />),
   getItem('Delivery', 'sub3', <TeamOutlined />),
-
   getItem('Logout', 'logout', <FileOutlined />),
 ];
 
@@ -52,6 +53,21 @@ const FullLayout = () => {
   }
 
   const [current, setCurrent] = useState('1');
+  const [cartCount, setCartCount] = useState(0); // Track the count of products in the cart
+
+  useEffect(() => {
+    // Retrieve cart data from cookie and update the cart count
+    const savedCart = Cookies.get('cart');
+    if (savedCart) {
+      try {
+        const cartItems = JSON.parse(savedCart);
+        setCartCount(cartItems.length); // Set cart count based on number of items in the cart
+      } catch (error) {
+        console.error('Error parsing cart from cookies:', error);
+        setCartCount(0); // If there is an error parsing the cart, reset the count
+      }
+    }
+  }, []); // Re-run when the component is mounted
 
   const handleClick = (e) => {
     setCurrent(e.key);
@@ -70,27 +86,41 @@ const FullLayout = () => {
     if (e.key === 'logout') {
       logout();
     }
+  };
 
+  const goShopping = () => {
+    navigate('/shopping');
   };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-
       <Layout>
-        <div className='shadow-lg'>
+        <div className="shadow-lg">
           <div className={styles.headercontainer}>
             <div></div>
             <div className={styles.G2}>
+              <button
+                onClick={goShopping}
+                className="w-[35px] h-[35px] flex justify-center items-center rounded-full text-lg mx-2 hover:bg-gray-200 transition duration-300"
+              >
+                <HeartOutlined />
+                {/* Display the cart count if it's greater than 0 */}
+                {cartCount > 0 && (
+                  <span className="absolute top-0 ml-5 text-xs text-red-500 bg-white rounded-full w-5 h-5 flex justify-center items-center">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
               <div className="flex justify-center items-center">
                 <div className="w-9 h-9 overflow-hidden rounded-full border-2 border-gray-300">
                   <img
                     src="https://imgcdn.stablediffusionweb.com/2024/11/10/9cf53bca-4ed8-4384-9b96-3d4c3ffac4ad.jpg"
-                    alt=""
+                    alt="User Avatar"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className='ml-2'>
-                  <div className={styles.username}>{user.name || 'User'}</div> {/* Display user name */}
+                <div className="ml-2">
+                  <div className={styles.username}>{user.name || 'User'}</div>
                   <div className={styles.role}>{user.role}</div>
                 </div>
               </div>
@@ -98,19 +128,8 @@ const FullLayout = () => {
           </div>
         </div>
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {/* Add breadcrumb items if needed */}
-          </Breadcrumb>
-          {/* <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          > */}
+          <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
           <Outlet /> {/* Render child routes here */}
-          {/* </div> */}
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED

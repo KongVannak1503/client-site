@@ -19,6 +19,11 @@ import UpdateDelivery from "./pages/delivery-partner/update"
 import Cloud from "./pages/auth/Cloud"
 import FullLayout from "./components/layouts/FullLayout"
 import ProductCards from "./pages/product/Product"
+import ShoppingCard from "./pages/product/ShoppingCard"
+import Items from "./pages/product/items"
+import Maps from "./pages/product/Map"
+import SiemReapMap from "./pages/product/Map"
+import GoMapLocation from "./pages/product/GoMap"
 
 function App() {
   return (
@@ -51,6 +56,11 @@ function App() {
         </Route>
         <Route path="/" element={<FullLayout />}>
           <Route path="/products" element={<ProductCards />} />
+          <Route path="/shopping" element={<ShoppingCard />} />
+          <Route path="/items/:id" element={<Items />} />
+          <Route path="/map" element={<SiemReapMap />} />
+          <Route path="/go-map" element={<GoMapLocation />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
