@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./pages/auth/LoginPage"
 import HomePage from "./pages/home/HomePage"
 import MainLayout from "./components/layouts/MainLayout"
@@ -30,7 +30,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<MainLayout />}>
+        <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<HomePage />} />
 
           <Route path="/users" element={<UserList />} />
@@ -54,7 +54,9 @@ function App() {
 
           <Route path="*" element={<h1>Page not found</h1>} />
         </Route>
-        <Route path="/" element={<FullLayout />}>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+        <Route element={<FullLayout />}>
           <Route path="/products" element={<ProductCards />} />
           <Route path="/shopping" element={<ShoppingCard />} />
           <Route path="/items/:id" element={<Items />} />
