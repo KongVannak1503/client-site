@@ -6,7 +6,7 @@ const GoMapLocation = ({ confirmLocation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const apiKey = "AlzaSyosfLcfy3cpTFFNB1aYJC226c7iSx404pD"; // Replace with your actual API key
+  const apiKey = "AlzaSyvke_pOCVDyNubJgz7CANNdavmDEVGMmRF"; // Replace with your actual API key
 
   useEffect(() => {
     const script = document.createElement("script");
